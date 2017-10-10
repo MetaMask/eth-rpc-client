@@ -40,13 +40,13 @@ function createEthRpcClient(_opts) {
   engine.push(createFilterMiddleware({ blockTracker, provider }))
   // caching layers
   engine.push(createInflightCacheMiddleware())
-  engine.addProvider(providerEngineSubproviderAsMiddleware({
+  engine.push(providerEngineSubproviderAsMiddleware({
     provider,
     blockTracker,
     subprovider: new BlockCacheSubprovider(),
   }))
   // identity management
-  engine.addProvider(providerEngineSubproviderAsMiddleware({
+  engine.push(providerEngineSubproviderAsMiddleware({
     provider,
     blockTracker,
     subprovider: new HookedWalletSubprovider({
