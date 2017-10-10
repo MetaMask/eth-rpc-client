@@ -1,0 +1,19 @@
+{
+  "name": "eth-rpc-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "eth-block-tracker": "^2.2.2",
+    "eth-json-rpc-filters": "^1.2.2",
+    "eth-json-rpc-middleware": "^1.4.1",
+    "json-rpc-engine": "^3.2.0",
+    "web3-provider-engine": "^13.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
