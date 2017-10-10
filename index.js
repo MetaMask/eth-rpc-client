@@ -11,10 +11,10 @@ const BlockTracker = require('eth-block-tracker')
 const BlockCacheSubprovider = require('web3-provider-engine/subproviders/cache')
 const HookedWalletSubprovider = require('web3-provider-engine/subproviders/hooked-wallet')
 
-module.exports = createEthIpfsClient
+module.exports = createEthRpcClient
 
 
-function createEthIpfsClient(_opts) {
+function createEthRpcClient(_opts) {
   // parse options
   const opts = Object.assign({}, {
     rpcUrl: 'https://mainnet.infura.io',
