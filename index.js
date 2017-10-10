@@ -23,7 +23,7 @@ function createEthRpcClient(_opts) {
   // setup infura data source
   const { rpcUrl } = opts
   const internalEngine = new JsonRpcEngine()
-  const fetchMiddleware = createFetchMidransdleware({ rpcUrl })
+  const fetchMiddleware = createFetchMiddleware({ rpcUrl })
   internalEngine.push(fetchMiddleware)
   const internalProvider = providerFromEngine(internalEngine)
 
