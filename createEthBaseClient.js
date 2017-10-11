@@ -23,7 +23,7 @@ function createEthBaseClient(_opts) {
   }, _opts)
 
   assert(opts.blockTracker, 'must have opts.blockTracker')
-  assert(opts.networkMiddlware, 'must have opts.networkMiddlware')
+  assert(opts.networkMiddleware, 'must have opts.networkMiddleware')
 
   // setup blockTracker
   const blockTracker = opts.blockTracker
@@ -40,7 +40,7 @@ function createEthBaseClient(_opts) {
   // identity management
   engine.push(opts.createIdMgmtMiddleware({ opts, provider, blockTracker }))
   // network handled
-  engine.push(opts.networkMiddlware)
+  engine.push(opts.networkMiddleware)
 
   return { engine, provider }
 }
