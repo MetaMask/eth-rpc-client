@@ -16,6 +16,7 @@ function createEthBaseClient(_opts) {
   const opts = Object.assign({}, {
     scaffold: {},
     createCacheMiddleware,
+    createPolyfillMiddleware,
     createIdMgmtMiddleware,
   }, _opts)
 
@@ -30,10 +31,10 @@ function createEthBaseClient(_opts) {
   const provider = providerFromEngine(engine)
   // client handled
   engine.push(createStatsMiddleware())
-  engine.push(createScaffoldMiddleware(opts.scaffold))
-  engine.push(createFilterMiddleware({ blockTracker, provider }))
   // caching layers
   engine.push(opts.createCacheMiddleware({ opts, provider, blockTracker }))
+  // polyfills
+  engine.push(opts.createPolyfillMiddleware({ opts, provider, blockTracker }))
   // identity management
   engine.push(opts.createIdMgmtMiddleware({ opts, provider, blockTracker }))
   // network handled
@@ -42,7 +43,25 @@ function createEthBaseClient(_opts) {
   return { engine, provider }
 }
 
-function createIdMgmtLayer({ opts, provider, blockTracker }) {
+function createCacheMiddleware({ opts, provider, blockTracker }) {
+  const internalEngine = new JsonRpcEngine()
+  internalEngine.push(createInflightCacheMiddleware())
+  internalEngine.push(providerEngineSubproviderAsMiddleware({
+    provider,
+    blockTracker,
+    subprovider: new BlockCacheSubprovider(),
+  }))
+  return asMiddleware(internalEngine)
+}
+
+function createPolyfillMiddleware({ opts, provider, blockTracker }) {
+  const internalEngine = new JsonRpcEngine()
+  internalEngine.push(createScaffoldMiddleware(opts.scaffold))
+  internalEngine.push(createFilterMiddleware({ blockTracker, provider }))
+  return asMiddleware(internalEngine)
+}
+
+function createIdMgmtMiddleware({ opts, provider, blockTracker }) {
   return providerEngineSubproviderAsMiddleware({
     provider,
     blockTracker,
@@ -70,15 +89,4 @@ function createIdMgmtLayer({ opts, provider, blockTracker }) {
       signTypedMessage: opts.signTypedMessage,
     }),
   })
-}
-
-function createCacheLayer({ opts, provider, blockTracker }) {
-  const internalEngine = new JsonRpcEngine()
-  internalEngine.push(createInflightCacheMiddleware())
-  internalEngine.push(providerEngineSubproviderAsMiddleware({
-    provider,
-    blockTracker,
-    subprovider: new BlockCacheSubprovider(),
-  }))
-  return asMiddleware(internalEngine)
 }

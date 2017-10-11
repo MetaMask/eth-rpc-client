@@ -14,7 +14,7 @@ function createEthRpcClient(_opts) {
     rpcUrl: 'https://mainnet.infura.io',
   }, _opts)
 
-  // setup infura data source
+  // setup data source
   const { rpcUrl } = opts
   const internalEngine = new JsonRpcEngine()
   const fetchMiddleware = createFetchMiddleware({ rpcUrl })
