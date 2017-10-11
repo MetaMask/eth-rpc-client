@@ -10,6 +10,8 @@ const createFilterMiddleware = require('eth-json-rpc-filters')
 const BlockCacheSubprovider = require('web3-provider-engine/subproviders/cache')
 const HookedWalletSubprovider = require('web3-provider-engine/subproviders/hooked-wallet')
 
+module.exports = createEthBaseClient
+
 
 function createEthBaseClient(_opts) {
   // parse options
