@@ -18,6 +18,7 @@ function createEthRpcClient(_opts) {
   // parse options
   const opts = Object.assign({}, {
     rpcUrl: 'https://mainnet.infura.io',
+    scaffold: {},
   }, _opts)
 
   // setup infura data source
