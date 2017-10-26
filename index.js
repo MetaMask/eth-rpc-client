@@ -26,7 +26,6 @@ function createEthRpcClient(_opts) {
     provider: providerFromEngine(internalEngine),
   }, opts.blockTracker)
   const blockTracker = new BlockTracker(blockTrackerOpts)
-  blockTracker.start()
 
   const { engine, provider } = createEthBaseClient(Object.assign({
     blockTracker,
