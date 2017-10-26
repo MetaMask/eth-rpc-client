@@ -34,5 +34,4 @@ function createEthRpcClient(_opts) {
   const { engine, provider } = createEthBaseClient(baseClientOpts)
 
   return { engine, provider, blockTracker }
-  }
 }
