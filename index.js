@@ -27,10 +27,11 @@ function createEthRpcClient(_opts) {
   }, opts.blockTracker)
   const blockTracker = new BlockTracker(blockTrackerOpts)
 
-  const { engine, provider } = createEthBaseClient(Object.assign({}, opts, {
+  const baseClientOpts = Object.assign({}, opts, {
     blockTracker,
     networkMiddleware, 
   })
+  const { engine, provider } = createEthBaseClient(baseClientOpts)
 
   return { engine, provider, blockTracker }
   }
